@@ -118,9 +118,15 @@ Validated success strings:
 - `smoke sandbox ready`
 - `KLAATU BERADA NIKTO acknowledged by smoke sandbox`
 
-Known limitation:
+Repo-local launcher support:
 
-- the repo-local shortcut `scripts/run-initial-smoke.sh --window <kitty-window-id> --quit-after` timed out during reuse-mode validation; that follow-up is tracked separately.
+- the repo-local shortcut now supports the no-popup path:
+
+```bash
+./scripts/run-initial-smoke.sh --window "$KITTY_WINDOW_ID" --quit-after
+```
+
+- in this mode, the launcher creates a fresh sandbox tab in the current Kitty OS window, runs the smoke flow there, captures artifacts under the configured output directory, and closes the sandbox tab automatically.
 
 ## Follow-up work
 

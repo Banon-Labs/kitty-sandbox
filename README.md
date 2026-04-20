@@ -58,18 +58,20 @@ A convenience launcher is available at:
 
 - `scripts/run-initial-smoke.sh`
 
-Example:
+Examples:
 
 ```bash
+# popup-allowed helper path
 ./scripts/run-initial-smoke.sh --allow-popup-launch --quit-after
+
+# no-popup path in the current Kitty OS window
+./scripts/run-initial-smoke.sh --window "$KITTY_WINDOW_ID" --quit-after
 ```
 
-For a non-popup existing-window variant, see:
+For the detailed existing-window flow and artifact expectations, see:
 
 - `docs/initial-kitty-smoke-scenario.md`
 
-That document includes a validated flow using `kitty-orchestrate.sh launch-tab` plus `send-with-captures` inside the current Kitty OS window.
-
 ## Next step
 
-Decide whether to stabilize the repo-local `--window` launcher path or keep the documented manual existing-window flow as the preferred no-popup variant.
+Use either the popup-allowed or existing-window launcher path to capture repeatable evidence, then decide whether this repo needs more scenario variants or artifact-review automation.

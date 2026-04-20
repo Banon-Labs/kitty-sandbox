@@ -64,6 +64,12 @@ Example:
 ./scripts/run-initial-smoke.sh --allow-popup-launch --quit-after
 ```
 
+For a non-popup existing-window variant, see:
+
+- `docs/initial-kitty-smoke-scenario.md`
+
+That document includes a validated flow using `kitty-orchestrate.sh launch-tab` plus `send-with-captures` inside the current Kitty OS window.
+
 ## Next step
 
-Use the repo-local launcher to capture repeatable evidence, then decide whether this repo needs more scenario variants or lightweight automation around artifact review.
+Decide whether to stabilize the repo-local `--window` launcher path or keep the documented manual existing-window flow as the preferred no-popup variant.

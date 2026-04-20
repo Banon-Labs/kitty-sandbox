@@ -68,10 +68,64 @@ Initial expected string:
 
 This gives the repository one stable, bounded target that matches its name and the surrounding Kitty/Pi work, without prematurely introducing new helper code into the repo itself.
 
+## Existing-window variant
+
+A second supported variant avoids popup launch entirely by reusing the current Kitty OS window and creating a fresh sandbox tab inside it.
+
+Validated flow:
+
+```bash
+# 1) create a fresh sandbox tab in the current Kitty window
+window_id=$(/home/choza/projects/scripts/kitty-orchestrate.sh launch-tab \
+  --cwd /home/choza/projects/kitty-sandbox \
+  --title existing-window-sandbox-manual)
+
+# 2) start Pi in that tab
+pi_cmd='pi --provider smoke-sandbox --model deterministic --thinking minimal --tools read,grep,find,ls --session-dir /tmp/kitty-sandbox-existing-window-manual2/sessions --verbose --no-extensions --extension /home/choza/projects/pi-smoke-sandbox/index.ts'
+/home/choza/projects/scripts/kitty-orchestrate.sh send-with-captures \
+  --window "$window_id" \
+  --text "$pi_cmd" \
+  --enter \
+  --before /tmp/kitty-sandbox-existing-window-manual2/pi-command-before.txt \
+  --after /tmp/kitty-sandbox-existing-window-manual2/pi-command-after.txt
+
+# 3) verify readiness and then run the smoke phrase
+/home/choza/projects/scripts/kitty-orchestrate.sh send-with-captures \
+  --window "$window_id" \
+  --text '__PI_SMOKE_SANDBOX_READY_PROBE__' \
+  --enter \
+  --before /tmp/kitty-sandbox-existing-window-manual2/probe-before.txt \
+  --after /tmp/kitty-sandbox-existing-window-manual2/probe-after.txt
+
+/home/choza/projects/scripts/kitty-orchestrate.sh send-with-captures \
+  --window "$window_id" \
+  --text 'KLAATU BERADA NIKTO' \
+  --enter \
+  --before /tmp/kitty-sandbox-existing-window-manual2/prompt-before.txt \
+  --after /tmp/kitty-sandbox-existing-window-manual2/prompt-after.txt
+
+# 4) close the sandbox tab
+/home/choza/projects/scripts/kitty-orchestrate.sh close-window --window "$window_id"
+```
+
+Validated evidence set:
+
+- `/tmp/kitty-sandbox-existing-window-manual2/probe-after.txt`
+- `/tmp/kitty-sandbox-existing-window-manual2/prompt-after.txt`
+
+Validated success strings:
+
+- `smoke sandbox ready`
+- `KLAATU BERADA NIKTO acknowledged by smoke sandbox`
+
+Known limitation:
+
+- the repo-local shortcut `scripts/run-initial-smoke.sh --window <kitty-window-id> --quit-after` timed out during reuse-mode validation; that follow-up is tracked separately.
+
 ## Follow-up work
 
 Once this contract is accepted, the next implementation-oriented task should:
 
-- run the documented command from this repo
+- run one of the documented command paths from this repo
 - capture one successful evidence set
 - record the artifact paths in Beads

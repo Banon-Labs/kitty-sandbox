@@ -9,7 +9,7 @@ This repository is initialized with:
 - a standalone Git repository
 - a standalone Beads database under `.beads/`
 - a public GitHub remote: `git@github.com:Banon-Labs/kitty-sandbox.git`
-- a public Beads/Dolt remote: `https://doltremoteapi.dolthub.com/chozandrias/kitty-sandbox`
+- a local-only Beads database (public DoltHub sync disabled for now due remote push instability)
 
 ## Working conventions
 
@@ -35,7 +35,9 @@ bd update <issue-id> --status in_progress --json
 bd close <issue-id> --reason "Done" --json
 
 # sync Beads
-bd dolt commit -m "checkpoint" && bd dolt pull && bd dolt push
+# currently local-only: no DoltHub remote configured
+# if public sync is re-enabled later, use:
+# bd dolt commit -m "checkpoint" && bd dolt pull && bd dolt push
 ```
 
 ## Repository contents

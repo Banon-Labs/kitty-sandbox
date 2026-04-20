@@ -50,6 +50,18 @@ The first concrete workload for this repo is documented here:
 
 - `docs/initial-kitty-smoke-scenario.md`
 
+## Repo-local launcher
+
+A convenience launcher is available at:
+
+- `scripts/run-initial-smoke.sh`
+
+Example:
+
+```bash
+./scripts/run-initial-smoke.sh --allow-popup-launch --quit-after
+```
+
 ## Next step
 
-Execute the documented Kitty smoke scenario, capture one successful evidence set, and record the artifact paths in Beads.
+Use the repo-local launcher to capture repeatable evidence, then decide whether this repo needs more scenario variants or lightweight automation around artifact review.

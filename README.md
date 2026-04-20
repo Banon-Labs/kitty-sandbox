@@ -44,6 +44,12 @@ bd dolt commit -m "checkpoint" && bd dolt pull && bd dolt push
 - `.beads/` — Beads metadata and local Dolt state
 - `.pi/`, `.pi-lens/` — local Pi runtime artifacts (ignored by Git)
 
+## Initial scenario contract
+
+The first concrete workload for this repo is documented here:
+
+- `docs/initial-kitty-smoke-scenario.md`
+
 ## Next step
 
-Create the first real task in Beads and use this repo as the isolated home for that work.
+Execute the documented Kitty smoke scenario, capture one successful evidence set, and record the artifact paths in Beads.
